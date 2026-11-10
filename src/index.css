@@ -1,0 +1,206 @@
+:root {
+  --cor-primaria: #1f5f8b;
+  --cor-fundo: #f4f6f8;
+  --cor-texto: #1c2733;
+  --cor-borda: #dde3ea;
+  --cor-erro: #b3261e;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* ---------- Topo e menu ---------- */
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: var(--cor-primaria);
+  padding: 0.9rem 1.25rem;
+}
+
+.marca {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.menu a {
+  color: #dbe9f4;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.menu a:hover,
+.menu a.active {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.menu-usuario {
+  color: #dbe9f4;
+  font-size: 0.85rem;
+}
+
+.botao-sair {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+}
+
+.botao-sair:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ---------- Conteúdo e estados ---------- */
+.conteudo {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.estado {
+  padding: 1rem;
+  text-align: center;
+}
+
+.estado.erro {
+  color: var(--cor-erro);
+  background: #fdecea;
+  border-radius: 8px;
+}
+
+.aviso {
+  padding: 0.75rem 1rem;
+  background: #fff4d6;
+  border-radius: 8px;
+}
+
+/* ---------- Formulários ---------- */
+.form-pagina {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.formulario {
+  display: grid;
+  gap: 1rem;
+}
+
+.campo {
+  display: grid;
+  gap: 0.3rem;
+  font-weight: 600;
+}
+
+.campo input {
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.campo input[aria-invalid='true'] {
+  border-color: var(--cor-erro);
+}
+
+.campo-erro {
+  color: var(--cor-erro);
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.botao {
+  padding: 0.7rem 1rem;
+  background: var(--cor-primaria);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.botao:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* ---------- Vitrine e cards ---------- */
+.grade {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--cor-borda);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card-foto {
+  display: block;
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+}
+
+.card-foto-vazia {
+  display: grid;
+  place-items: center;
+  background: var(--cor-borda);
+  color: #6b7785;
+}
+
+.card-corpo {
+  padding: 0.9rem 1rem 1.1rem;
+}
+
+.card-corpo h3 {
+  margin: 0.4rem 0 0.2rem;
+}
+
+.selo {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: #e3f0f9;
+  color: var(--cor-primaria);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.local {
+  margin: 0;
+  color: #5b6773;
+}
+
+.valor {
+  margin: 0.6rem 0 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
