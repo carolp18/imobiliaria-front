@@ -11,3 +11,9 @@ export async function listarImoveis(params = {}) {
   const { data } = await api.get('/imoveis', { params })
   return extrairLista(data)
 }
+
+// GET /imoveis/{id}: devolve o imóvel ou 404
+export async function buscarImovel(id) {
+  const { data } = await api.get(`/imoveis/${id}`)
+  return data
+}

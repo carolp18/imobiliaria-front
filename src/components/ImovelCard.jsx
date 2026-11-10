@@ -1,29 +1,46 @@
-// Os campos podem vir como texto ou como objeto ({ nome }), dependendo do backend.
-const texto = (valor) => (valor && typeof valor === 'object' ? valor.nome : valor)
+import { Link } from 'react-router-dom'
+import { moeda, precosDoImovel } from '../utils/formatar.js'
 
-const moeda = (valor) =>
-  Number(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+// "foto" é opcional: quando as fotos estiverem integradas, basta passar a URL.
+export default function ImovelCard({ imovel, foto }) {
+  const precos = precosDoImovel(imovel)
+  const tipo = imovel.tipoImovel?.nome
+  const local = [tipo, imovel.bairro?.nome, imovel.bairro?.cidade].filter(Boolean).join(' · ')
 
-export default function ImovelCard({ imovel }) {
-  const foto = imovel.fotos?.[0]?.url ?? imovel.foto ?? imovel.fotoUrl
-  const tipo = texto(imovel.tipo) ?? texto(imovel.tipoImovel)
-  const bairro = texto(imovel.bairro)
-  const cidade = imovel.cidade ?? imovel.bairro?.cidade
-  const finalidade = texto(imovel.finalidade) ?? texto(imovel.tipoOferta)
+  const detalhes = [
+    imovel.dormitorios != null && `${imovel.dormitorios} dorm.`,
+    imovel.banheiros != null && `${imovel.banheiros} banh.`,
+    imovel.garagem != null && `${imovel.garagem} vaga(s)`,
+  ].filter(Boolean)
 
   return (
     <article className="card">
       {foto ? (
-        <img className="card-foto" src={foto} alt={`${tipo ?? 'Imóvel'} em ${bairro ?? ''}`} />
+        <img className="card-foto" src={foto} alt={imovel.titulo} />
       ) : (
         <div className="card-foto card-foto-vazia">Sem foto</div>
       )}
 
       <div className="card-corpo">
-        {finalidade && <span className="selo">{finalidade}</span>}
-        <h3>{tipo ?? 'Imóvel'}</h3>
-        <p className="local">{[bairro, texto(cidade)].filter(Boolean).join(' · ')}</p>
-        {imovel.valor != null && <p className="valor">{moeda(imovel.valor)}</p>}
+        <div className="selos">
+          {imovel.finalidade && <span className="selo">{imovel.finalidade}</span>}
+          {imovel.status && <span className="selo selo-status">{imovel.status}</span>}
+        </div>
+
+        <h3>{imovel.titulo}</h3>
+        {local && <p className="local">{local}</p>}
+        {detalhes.length > 0 && <p className="detalhes-curtos">{detalhes.join(' · ')}</p>}
+
+        {precos.map((preco) => (
+          <p className="valor" key={preco.rotulo}>
+            <span className="valor-rotulo">{preco.rotulo}</span> {moeda(preco.valor)}
+            {preco.sufixo}
+          </p>
+        ))}
+
+        <Link className="botao botao-link" to={`/imoveis/${imovel.id}`}>
+          Ver detalhes
+        </Link>
       </div>
     </article>
   )
