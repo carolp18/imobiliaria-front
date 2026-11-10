@@ -9,7 +9,7 @@ export const tokenStorage = {
 }
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:3000',
+  baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:8080',
   timeout: 15000,
 })
 
@@ -22,13 +22,14 @@ api.interceptors.request.use((config) => {
   return config
 })
 
-// 401 (sessão expirada): apaga o token e leva ao login
+// 401 com token guardado = sessão expirada: apaga o token e volta ao login.
+// (No login com senha errada não há token guardado, então não cai aqui.)
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401 && tokenStorage.get()) {
       tokenStorage.clear()
-      window.location.assign('/login')
+      window.location.assign('/login?expirou=1')
     }
     return Promise.reject(error)
   },
